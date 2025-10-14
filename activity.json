@@ -1,1 +1,1 @@
-{"update":1,"timestamp":"2025-10-11T21:41:23+05:30","msg":"feat(analytics): add /api/analytics/stats endpoint"}
+{"update":2,"timestamp":"2025-10-14T11:50:45+05:30","msg":"feat(analytics): implement top-IP and top-path aggregation"}

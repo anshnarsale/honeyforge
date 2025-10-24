@@ -1,1 +1,1 @@
-{"update":7,"timestamp":"2025-10-23T13:21:03+05:30","msg":"feat(export): add CSV export with configurable limit"}
+{"update":8,"timestamp":"2025-10-24T18:24:32+05:30","msg":"feat(export): support filtering exports by service type"}

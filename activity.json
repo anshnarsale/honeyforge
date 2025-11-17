@@ -1,1 +1,1 @@
-{"update":15,"timestamp":"2025-11-17T14:55:07+05:30","msg":"feat(events): add filter by honeypot_id query param"}
+{"update":16,"timestamp":"2025-11-17T15:06:35+05:30","msg":"feat(events): add filter by service and event_type"}

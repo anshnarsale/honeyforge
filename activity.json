@@ -1,1 +1,1 @@
-{"update":47,"timestamp":"2026-02-08T20:50:57+05:30","msg":"chore: add .editorconfig for consistent formatting"}
+{"update":48,"timestamp":"2026-02-11T13:40:05+05:30","msg":"fix(session): session_id nullable=True — allow TCP sessions without id"}

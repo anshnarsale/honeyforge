@@ -1,1 +1,1 @@
-{"update":48,"timestamp":"2026-02-11T13:40:05+05:30","msg":"fix(session): session_id nullable=True — allow TCP sessions without id"}
+{"update":49,"timestamp":"2026-02-14T18:43:35+05:30","msg":"docs: add architecture diagram to README"}

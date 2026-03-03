@@ -1,1 +1,1 @@
-{"update":56,"timestamp":"2026-03-03T15:44:21+05:30","msg":"feat(export): add JSON export for captured events"}
+{"update":57,"timestamp":"2026-03-03T20:58:50+05:30","msg":"feat(export): add CSV export with configurable limit"}

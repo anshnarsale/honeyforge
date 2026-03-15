@@ -1,1 +1,1 @@
-{"update":59,"timestamp":"2026-03-13T11:18:53+05:30","msg":"feat(export): add Content-Disposition header for downloads"}
+{"update":60,"timestamp":"2026-03-15T15:12:48+05:30","msg":"feat(geoip): add ip-api.com integration for attacker lookup"}

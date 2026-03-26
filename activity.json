@@ -1,1 +1,1 @@
-{"update":64,"timestamp":"2026-03-25T11:04:31+05:30","msg":"feat(geoip): skip private/loopback addresses in lookup"}
+{"update":65,"timestamp":"2026-03-26T19:40:58+05:30","msg":"feat(events): add filter by honeypot_id query param"}

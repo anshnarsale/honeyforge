@@ -1,1 +1,1 @@
-{"update":70,"timestamp":"2026-04-10T14:17:48+05:30","msg":"fix(ssh): sanitize command input before pattern matching"}
+{"update":71,"timestamp":"2026-04-12T14:50:42+05:30","msg":"fix(http): return 400 on malformed request headers"}

@@ -1,1 +1,1 @@
-{"update":77,"timestamp":"2026-04-25T15:19:48+05:30","msg":"chore(deps): pin fastapi and sqlalchemy versions"}
+{"update":78,"timestamp":"2026-04-26T14:26:54+05:30","msg":"chore: add .python-version file for pyenv users"}

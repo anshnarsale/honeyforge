@@ -1,1 +1,1 @@
-{"update":84,"timestamp":"2026-05-11T20:13:48+05:30","msg":"feat(ssh): add more realistic fake shell responses"}
+{"update":85,"timestamp":"2026-05-14T15:43:39+05:30","msg":"feat(ssh): log attacker public key fingerprint on connection"}

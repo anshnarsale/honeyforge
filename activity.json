@@ -1,1 +1,1 @@
-{"update":85,"timestamp":"2026-05-14T15:43:39+05:30","msg":"feat(ssh): log attacker public key fingerprint on connection"}
+{"update":86,"timestamp":"2026-05-18T12:25:36+05:30","msg":"fix(db): add index on events.timestamp for faster queries"}

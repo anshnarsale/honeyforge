@@ -1,1 +1,1 @@
-{"update":87,"timestamp":"2026-05-21T09:47:56+05:30","msg":"fix(db): add index on events.source_ip for analytics perf"}
+{"update":88,"timestamp":"2026-05-22T14:24:38+05:30","msg":"feat(api): add /api/honeypots/{id} GET for single honeypot"}

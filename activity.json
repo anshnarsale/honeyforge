@@ -1,1 +1,1 @@
-{"update":90,"timestamp":"2026-05-25T10:19:46+05:30","msg":"chore(frontend): upgrade next.js to latest patch"}
+{"update":91,"timestamp":"2026-05-28T14:44:58+05:30","msg":"fix(frontend): handle empty state on events table gracefully"}

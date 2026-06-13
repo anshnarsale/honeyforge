@@ -1,1 +1,1 @@
-{"update":94,"timestamp":"2026-06-05T19:40:34+05:30","msg":"style(frontend): consistent card border radius across dashboard"}
+{"update":95,"timestamp":"2026-06-13T17:07:21+05:30","msg":"fix(frontend): fix hydration error on stats panel"}

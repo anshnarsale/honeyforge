@@ -1,1 +1,1 @@
-{"update":95,"timestamp":"2026-06-13T17:07:21+05:30","msg":"fix(frontend): fix hydration error on stats panel"}
+{"update":96,"timestamp":"2026-06-14T12:43:43+05:30","msg":"feat(frontend): add copy-to-clipboard for source IP in events"}

@@ -1,1 +1,1 @@
-{"update":100,"timestamp":"2026-06-18T17:32:33+05:30","msg":"feat(honeypots): restart honeypot process automatically if it crashes"}
+{"update":101,"timestamp":"2026-06-19T14:57:33+05:30","msg":"feat(analytics): add /api/analytics/stats endpoint"}

@@ -1,1 +1,1 @@
-{"update":110,"timestamp":"2026-07-18T13:02:44+05:30","msg":"feat(geoip): add ip-api.com integration for attacker lookup"}
+{"update":111,"timestamp":"2026-07-19T11:57:39+05:30","msg":"feat(geoip): implement in-memory GeoIP cache"}

@@ -1,1 +1,1 @@
-{"update":113,"timestamp":"2026-07-25T13:53:33+05:30","msg":"feat(geoip): add bulk geoip for all unique attacker IPs"}
+{"update":114,"timestamp":"2026-07-26T18:42:19+05:30","msg":"feat(geoip): skip private/loopback addresses in lookup"}

@@ -1,1 +1,1 @@
-{"update":119,"timestamp":"2026-07-31T20:33:42+05:30","msg":"fix(honeypots): handle process not found gracefully on stop"}
+{"update":120,"timestamp":"2026-08-01T10:40:19+05:30","msg":"fix(ssh): sanitize command input before pattern matching"}

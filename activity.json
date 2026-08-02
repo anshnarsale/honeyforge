@@ -1,1 +1,1 @@
-{"update":121,"timestamp":"2026-08-02T09:43:32+05:30","msg":"fix(http): return 400 on malformed request headers"}
+{"update":122,"timestamp":"2026-08-02T14:28:06+05:30","msg":"refactor(events): deduplicate event query logic"}

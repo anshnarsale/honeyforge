@@ -1,1 +1,1 @@
-{"update":136,"timestamp":"2026-08-28T21:58:12+05:30","msg":"fix(db): add index on events.timestamp for faster queries"}
+{"update":137,"timestamp":"2026-08-31T17:05:09+05:30","msg":"fix(db): add index on events.source_ip for analytics perf"}

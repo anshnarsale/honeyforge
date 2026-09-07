@@ -1,1 +1,1 @@
-{"update":138,"timestamp":"2026-09-04T17:30:05+05:30","msg":"feat(api): add /api/honeypots/{id} GET for single honeypot"}
+{"update":139,"timestamp":"2026-09-07T13:46:33+05:30","msg":"feat(api): expose total event count on honeypot object"}

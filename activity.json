@@ -1,1 +1,1 @@
-{"update":141,"timestamp":"2026-09-08T17:23:54+05:30","msg":"fix(frontend): handle empty state on events table gracefully"}
+{"update":142,"timestamp":"2026-09-08T20:13:31+05:30","msg":"feat(frontend): show event count badge on honeypot cards"}

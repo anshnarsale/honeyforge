@@ -1,10 +1,10 @@
 import asyncio
-import uuid
 from datetime import datetime, timezone
 
 import asyncssh
 
 from app.services.event_logger import log_event
+from app.services.session_tracker import start_session, end_session
 
 FAKE_USERNAME = "admin"
 FAKE_PASSWORD = "admin123"
@@ -28,7 +28,7 @@ def make_ssh_server_class(honeypot_id: str):
             peer = conn.get_extra_info("peername")
             source_ip = peer[0] if peer else "unknown"
             source_port = peer[1] if peer else None
-            session_id = str(uuid.uuid4())
+            session_id = start_session(honeypot_id=honeypot_id, service="ssh", source_ip=source_ip)
 
             conn.set_extra_info(
                 honeypot_id=honeypot_id,
@@ -48,6 +48,11 @@ def make_ssh_server_class(honeypot_id: str):
             )
 
             self._conn = conn
+
+        def connection_lost(self, exc):
+            session_id = self._conn.get_extra_info("session_id")
+            end_session(session_id)
+            log(f"SSH connection closed, session {session_id}")
 
         def begin_auth(self, username):
             return True

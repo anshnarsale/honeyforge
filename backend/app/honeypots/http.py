@@ -1,10 +1,12 @@
 import asyncio
 from datetime import datetime, timezone
 
+from app.services.event_logger import log_event
+
 MAX_REQUEST_SIZE = 8192  # bytes, prevent memory abuse
 
 
-async def handle_client(reader: asyncio.StreamReader, writer: asyncio.StreamWriter, banner: str, hostname: str):
+async def handle_client(reader: asyncio.StreamReader, writer: asyncio.StreamWriter, banner: str, hostname: str, honeypot_id: str):
     addr = writer.get_extra_info("peername")
     source_ip, source_port = addr[0], addr[1]
 
@@ -29,6 +31,15 @@ async def handle_client(reader: asyncio.StreamReader, writer: asyncio.StreamWrit
     timestamp = datetime.now(timezone.utc).isoformat()
     print(f"[{timestamp}] {source_ip}:{source_port} {method} {path}")
 
+    log_event(
+        honeypot_id=honeypot_id,
+        service="http",
+        source_ip=source_ip,
+        source_port=source_port,
+        event_type="http_request",
+        metadata={"method": method, "path": path},
+    )
+
     body = f"<html><body><h1>{hostname}</h1></body></html>"
     response = (
         f"HTTP/1.1 200 OK\r\n"
@@ -45,9 +56,9 @@ async def handle_client(reader: asyncio.StreamReader, writer: asyncio.StreamWrit
     writer.close()
 
 
-async def run_http_honeypot(port: int, banner: str = "nginx", hostname: str = "server"):
+async def run_http_honeypot(port: int, banner: str = "nginx", hostname: str = "server", honeypot_id: str = "manual-test"):
     server = await asyncio.start_server(
-        lambda r, w: handle_client(r, w, banner, hostname), "0.0.0.0", port
+        lambda r, w: handle_client(r, w, banner, hostname, honeypot_id), "0.0.0.0", port
     )
     print(f"HTTP honeypot listening on port {port}")
     async with server:

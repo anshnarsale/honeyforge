@@ -1,7 +1,10 @@
 import asyncio
+import uuid
 from datetime import datetime, timezone
 
 import asyncssh
+
+from app.services.event_logger import log_event
 
 FAKE_USERNAME = "admin"
 FAKE_PASSWORD = "admin123"
@@ -19,26 +22,67 @@ def log(msg: str):
     print(f"[{timestamp}] {msg}")
 
 
-class HoneypotSSHServer(asyncssh.SSHServer):
-    def connection_made(self, conn):
-        peer = conn.get_extra_info("peername")
-        self.source_ip = peer[0] if peer else "unknown"
-        log(f"SSH connection from {self.source_ip}")
+def make_ssh_server_class(honeypot_id: str):
+    class HoneypotSSHServer(asyncssh.SSHServer):
+        def connection_made(self, conn):
+            peer = conn.get_extra_info("peername")
+            source_ip = peer[0] if peer else "unknown"
+            source_port = peer[1] if peer else None
+            session_id = str(uuid.uuid4())
 
-    def begin_auth(self, username):
-        self.username = username
-        return True
+            conn.set_extra_info(
+                honeypot_id=honeypot_id,
+                source_ip=source_ip,
+                source_port=source_port,
+                session_id=session_id,
+            )
 
-    def password_auth_supported(self):
-        return True
+            log(f"SSH connection from {source_ip}")
+            log_event(
+                honeypot_id=honeypot_id,
+                service="ssh",
+                source_ip=source_ip,
+                source_port=source_port,
+                event_type="ssh_connect",
+                session_id=session_id,
+            )
 
-    def validate_password(self, username, password):
-        success = username == FAKE_USERNAME and password == FAKE_PASSWORD
-        log(f"AUTH_ATTEMPT source={self.source_ip} username={username} password={password} success={success}")
-        return success
+            self._conn = conn
+
+        def begin_auth(self, username):
+            return True
+
+        def password_auth_supported(self):
+            return True
+
+        def validate_password(self, username, password):
+            success = username == FAKE_USERNAME and password == FAKE_PASSWORD
+            source_ip = self._conn.get_extra_info("source_ip")
+            source_port = self._conn.get_extra_info("source_port")
+            session_id = self._conn.get_extra_info("session_id")
+
+            log(f"AUTH_ATTEMPT source={source_ip} username={username} password={password} success={success}")
+            log_event(
+                honeypot_id=honeypot_id,
+                service="ssh",
+                source_ip=source_ip,
+                source_port=source_port,
+                event_type="ssh_login",
+                session_id=session_id,
+                metadata={"username": username, "password": password, "success": success},
+            )
+            return success
+
+    return HoneypotSSHServer
 
 
 async def handle_session(process: asyncssh.SSHServerProcess):
+    conn = process.get_extra_info("connection")
+    honeypot_id = conn.get_extra_info("honeypot_id")
+    source_ip = conn.get_extra_info("source_ip")
+    source_port = conn.get_extra_info("source_port")
+    session_id = conn.get_extra_info("session_id")
+
     process.stdout.write(f"Welcome to {HOSTNAME}\r\n")
 
     while True:
@@ -56,6 +100,15 @@ async def handle_session(process: asyncssh.SSHServerProcess):
             continue
 
         log(f"COMMAND {command}")
+        log_event(
+            honeypot_id=honeypot_id,
+            service="ssh",
+            source_ip=source_ip,
+            source_port=source_port,
+            event_type="ssh_command",
+            session_id=session_id,
+            metadata={"command": command},
+        )
 
         if command == "exit":
             break
@@ -75,9 +128,10 @@ async def handle_session(process: asyncssh.SSHServerProcess):
     process.exit(0)
 
 
-async def run_ssh_honeypot(port: int, host_key_path: str):
+async def run_ssh_honeypot(port: int, host_key_path: str, honeypot_id: str = "manual-test"):
+    server_class = make_ssh_server_class(honeypot_id)
     await asyncssh.create_server(
-        HoneypotSSHServer,
+        server_class,
         "0.0.0.0",
         port,
         server_host_keys=[host_key_path],

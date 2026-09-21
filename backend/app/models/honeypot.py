@@ -14,6 +14,8 @@ class Honeypot(Base):
     port = Column(Integer, nullable=False)
     banner = Column(String, nullable=True)
     hostname = Column(String, nullable=True)
+    fake_username = Column(String, nullable=True)
+    fake_password = Column(String, nullable=True)
     status = Column(String, default="stopped")  # stopped, running
     pid = Column(Integer, nullable=True)
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))

@@ -30,6 +30,8 @@ def create_honeypot(payload: HoneypotCreate, db: DBSession = Depends(get_db)):
         port=payload.port,
         banner=payload.banner,
         hostname=payload.hostname,
+        fake_username=payload.fake_username,
+        fake_password=payload.fake_password,
     )
     db.add(honeypot)
     db.commit()

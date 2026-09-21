@@ -24,6 +24,8 @@ async def main():
     config = get_honeypot_config(honeypot_id)
     banner = config.banner if config and config.banner else None
     hostname = config.hostname if config and config.hostname else None
+    fake_username = config.fake_username if config and config.fake_username else "admin"
+    fake_password = config.fake_password if config and config.fake_password else "admin123"
 
     if service_type == "http":
         await run_http_honeypot(
@@ -39,7 +41,13 @@ async def main():
             honeypot_id=honeypot_id,
         )
     elif service_type == "ssh":
-        await run_ssh_honeypot(port, "app/honeypots/keys/ssh_host_key", honeypot_id=honeypot_id)
+        await run_ssh_honeypot(
+            port,
+            "app/honeypots/keys/ssh_host_key",
+            honeypot_id=honeypot_id,
+            fake_username=fake_username,
+            fake_password=fake_password,
+        )
     else:
         print(f"Unknown service_type: {service_type}")
         sys.exit(1)

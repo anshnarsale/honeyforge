@@ -6,8 +6,6 @@ import asyncssh
 from app.services.event_logger import log_event
 from app.services.session_tracker import start_session, end_session
 
-FAKE_USERNAME = "admin"
-FAKE_PASSWORD = "admin123"
 HOSTNAME = "finance-server"
 
 FAKE_FILES = {
@@ -22,7 +20,7 @@ def log(msg: str):
     print(f"[{timestamp}] {msg}")
 
 
-def make_ssh_server_class(honeypot_id: str):
+def make_ssh_server_class(honeypot_id: str, fake_username: str, fake_password: str):
     class HoneypotSSHServer(asyncssh.SSHServer):
         def connection_made(self, conn):
             peer = conn.get_extra_info("peername")
@@ -61,7 +59,7 @@ def make_ssh_server_class(honeypot_id: str):
             return True
 
         def validate_password(self, username, password):
-            success = username == FAKE_USERNAME and password == FAKE_PASSWORD
+            success = username == fake_username and password == fake_password
             source_ip = self._conn.get_extra_info("source_ip")
             source_port = self._conn.get_extra_info("source_port")
             session_id = self._conn.get_extra_info("session_id")
@@ -118,7 +116,7 @@ async def handle_session(process: asyncssh.SSHServerProcess):
         if command == "exit":
             break
         elif command == "whoami":
-            process.stdout.write(f"{FAKE_USERNAME}\r\n")
+            process.stdout.write("admin\r\n")
         elif command == "hostname":
             process.stdout.write(f"{HOSTNAME}\r\n")
         elif command == "ls":
@@ -133,8 +131,14 @@ async def handle_session(process: asyncssh.SSHServerProcess):
     process.exit(0)
 
 
-async def run_ssh_honeypot(port: int, host_key_path: str, honeypot_id: str = "manual-test"):
-    server_class = make_ssh_server_class(honeypot_id)
+async def run_ssh_honeypot(
+    port: int,
+    host_key_path: str,
+    honeypot_id: str = "manual-test",
+    fake_username: str = "admin",
+    fake_password: str = "admin123",
+):
+    server_class = make_ssh_server_class(honeypot_id, fake_username, fake_password)
     await asyncssh.create_server(
         server_class,
         "0.0.0.0",

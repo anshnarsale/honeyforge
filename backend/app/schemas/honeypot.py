@@ -10,6 +10,8 @@ class HoneypotCreate(BaseModel):
     port: int
     banner: Optional[str] = None
     hostname: Optional[str] = None
+    fake_username: Optional[str] = None
+    fake_password: Optional[str] = None
 
 
 class HoneypotOut(BaseModel):
@@ -21,6 +23,8 @@ class HoneypotOut(BaseModel):
     port: int
     banner: Optional[str] = None
     hostname: Optional[str] = None
+    fake_username: Optional[str] = None
+    fake_password: Optional[str] = None
     status: str
     pid: Optional[int] = None
     created_at: datetime

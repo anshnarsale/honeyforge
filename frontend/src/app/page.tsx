@@ -31,6 +31,8 @@ export default function Home() {
   const [port, setPort] = useState("8080");
   const [banner, setBanner] = useState("");
   const [hostname, setHostname] = useState("");
+  const [fakeUsername, setFakeUsername] = useState("");
+  const [fakePassword, setFakePassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const loadData = () => {
@@ -49,7 +51,15 @@ export default function Home() {
     const res = await fetch(`${API}/api/honeypots/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, service_type: serviceType, port: parseInt(port), banner: banner || null, hostname: hostname || null }),
+      body: JSON.stringify({
+        name,
+        service_type: serviceType,
+        port: parseInt(port),
+        banner: banner || null,
+        hostname: hostname || null,
+        fake_username: fakeUsername || null,
+        fake_password: fakePassword || null,
+      }),
     });
     if (!res.ok) {
       const data = await res.json();
@@ -59,6 +69,8 @@ export default function Home() {
     setName("");
     setBanner("");
     setHostname("");
+    setFakeUsername("");
+    setFakePassword("");
     loadData();
   };
 
@@ -121,6 +133,8 @@ export default function Home() {
           <input className="bg-zinc-900 border border-zinc-800 rounded px-2 py-1 text-sm" placeholder="Port" value={port} onChange={(e) => setPort(e.target.value)} />
           <input className="bg-zinc-900 border border-zinc-800 rounded px-2 py-1 text-sm" placeholder="Banner (optional)" value={banner} onChange={(e) => setBanner(e.target.value)} />
           <input className="bg-zinc-900 border border-zinc-800 rounded px-2 py-1 text-sm" placeholder="Hostname (optional)" value={hostname} onChange={(e) => setHostname(e.target.value)} />
+          <input className="bg-zinc-900 border border-zinc-800 rounded px-2 py-1 text-sm" placeholder="Fake username (SSH, default: admin)" value={fakeUsername} onChange={(e) => setFakeUsername(e.target.value)} />
+          <input className="bg-zinc-900 border border-zinc-800 rounded px-2 py-1 text-sm" placeholder="Fake password (SSH, default: admin123)" value={fakePassword} onChange={(e) => setFakePassword(e.target.value)} />
           <button className="bg-emerald-700 hover:bg-emerald-600 text-white text-sm rounded px-3 py-1.5 mt-2" onClick={createHoneypot}>
             Create
           </button>

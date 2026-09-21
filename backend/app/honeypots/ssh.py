@@ -143,12 +143,8 @@ async def run_ssh_honeypot(port: int, host_key_path: str, honeypot_id: str = "ma
         process_factory=handle_session,
     )
     print(f"SSH honeypot listening on port {port}")
-
-
-async def main():
-    await run_ssh_honeypot(2222, "app/honeypots/keys/ssh_host_key")
     await asyncio.Event().wait()
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(run_ssh_honeypot(2222, "app/honeypots/keys/ssh_host_key"))

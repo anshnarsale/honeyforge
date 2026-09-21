@@ -77,12 +77,37 @@ export default function Home() {
     loadData();
   };
 
+  const activeCount = honeypots.filter((h) => h.status === "running").length;
+  const totalEvents = events.length;
+  const uniqueSources = new Set(events.map((e) => e.source_ip)).size;
+  const today = new Date().toDateString();
+  const todaysEvents = events.filter((e) => new Date(e.timestamp).toDateString() === today).length;
+
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 font-mono p-8">
       <h1 className="text-xl font-semibold tracking-tight mb-1">HoneyForge</h1>
       <p className="text-zinc-500 text-sm mb-6">Forge deception. Observe attackers.</p>
 
       {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10 max-w-3xl">
+        <div className="border border-zinc-800 rounded-md p-4">
+          <p className="text-zinc-500 text-xs uppercase tracking-wide mb-1">Active Honeypots</p>
+          <p className="text-2xl text-emerald-400">{activeCount}</p>
+        </div>
+        <div className="border border-zinc-800 rounded-md p-4">
+          <p className="text-zinc-500 text-xs uppercase tracking-wide mb-1">Total Events</p>
+          <p className="text-2xl">{totalEvents}</p>
+        </div>
+        <div className="border border-zinc-800 rounded-md p-4">
+          <p className="text-zinc-500 text-xs uppercase tracking-wide mb-1">Today&apos;s Events</p>
+          <p className="text-2xl">{todaysEvents}</p>
+        </div>
+        <div className="border border-zinc-800 rounded-md p-4">
+          <p className="text-zinc-500 text-xs uppercase tracking-wide mb-1">Unique Sources</p>
+          <p className="text-2xl">{uniqueSources}</p>
+        </div>
+      </div>
 
       <div className="mb-10 border border-zinc-800 rounded-md p-4 max-w-xl">
         <h2 className="text-sm text-zinc-400 mb-3 uppercase tracking-wide">Create Honeypot</h2>

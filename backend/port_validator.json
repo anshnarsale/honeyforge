@@ -1,0 +1,4 @@
+{
+  "preflight_port_check": true,
+  "socket_timeout_ms": 500
+}

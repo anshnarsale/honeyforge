@@ -1,0 +1,5 @@
+{
+  "service": "geoip",
+  "provider": "ip-api.com",
+  "cache": "lru_in_memory"
+}

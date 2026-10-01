@@ -1,0 +1,4 @@
+{
+  "service": "analytics",
+  "endpoints": ["/api/analytics/stats", "/api/analytics/timeline"]
+}

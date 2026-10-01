@@ -1,0 +1,4 @@
+{
+  "max_buffer_bytes": 65536,
+  "truncate_on_overflow": true
+}

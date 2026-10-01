@@ -1,0 +1,4 @@
+{
+  "max_cache_size": 2048,
+  "eviction_strategy": "LRU"
+}
